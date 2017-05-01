@@ -1,0 +1,23 @@
+{
+  "name": "copilot",
+  "description": "A tool like afred",
+  "version": "0.0.0",
+  "keywords": [
+    "mutate",
+    "afred",
+    "copilot"
+  ],
+  "scripts": {
+    "gui": "g++ -g src/cpp/gui.cc src/cpp/widgets/*.cc -o build/gui `pkg-config gtkmm-3.0 keybinder-3.0 --cflags --libs` -D DEBUG=DEBUG",
+    "assets": "cp -R ./assets ./build",
+    "run-gui": "./build/gui",
+    "config": "node-gyp configure",
+    "build": "node-gyp build && npm run assets",
+    "cb": "npm run config && npm run build"
+  },
+  "dependencies": {
+    "iohook": "^0.1.8",
+    "nan": "^2.6.1",
+    "node-keybinder": "^1.0.5"
+  }
+}
