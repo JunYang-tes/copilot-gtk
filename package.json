@@ -12,12 +12,29 @@
     "assets": "cp -R ./assets ./build",
     "run-gui": "./build/gui",
     "config": "node-gyp configure",
-    "build": "node-gyp build && npm run assets",
-    "cb": "npm run config && npm run build"
+    "build": "node-gyp build && npm run assets && yarn ts",
+    "cb": "npm run config && npm run build",
+    "clean": "rimraf lib",
+    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+    "ts": "npm run clean && npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
+    "test": "npm run build && mocha --compilers ts:ts-node/register --recursive 'test/**/*-spec.ts'",
+    "coverage": "nyc --include='src/**/*.ts' --reporter=text --reporter=html --reporter=lcov mocha --compilers ts:ts-node/register --recursive 'test/**/*.test.ts'",
+    "watch": "npm run build -- --watch",
+    "dev": "yarn build && cp -r lib/* ../copilot-gtk/node_modules/copilot-core/lib",
+    "cp": " cp -r lib/* ../copilot-gtk/node_modules/copilot-core/lib",
+    "start": "node --harmony lib/main.js",
+    "watch:test": "npm run test -- --watch"
   },
   "dependencies": {
+    "b-logger": "^0.0.4",
+    "copilot-core": "^0.0.2",
     "iohook": "^0.1.8",
     "nan": "^2.6.1",
     "node-keybinder": "^1.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.2",
+    "rimraf": "^2.6.1",
+    "tslint": "^5.4.3"
   }
 }

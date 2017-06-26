@@ -95,7 +95,10 @@ public:
     delete list;
   }
   void show(){
+    cout<<"@gui.show\n"<<endl;
     window->deiconify();
+    window->grab_focus();
+    this->entry->grab_focus();
   }
   void resetGeometry(){
     int screen_width=window->get_screen ()->get_width();

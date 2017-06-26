@@ -3,6 +3,8 @@
 
 #include <gtkmm.h>
 #include <string>
+#include <iostream>
+using std::cout;
 using std::string;
 using Gtk::ListBoxRow;
 using Gtk::Box;
@@ -11,6 +13,7 @@ using Gtk::Image;
 using Gtk::ScrolledWindow;
 using Gtk::Allocation;
 using Gtk::SizeRequestMode;
+
 
 #define ICON_SIZE 64
 class ListItem : public Box
@@ -39,7 +42,7 @@ public:
     auto pixbuf = Gdk::Pixbuf::create_from_file(img, ICON_SIZE, ICON_SIZE);
     this->image->set(pixbuf);
     }catch(...){
-
+      this->image->clear();
     }
     this->image->set_size_request(ICON_SIZE, ICON_SIZE);
     this->row->set_size_request(-1, ICON_SIZE);
@@ -63,10 +66,11 @@ public:
   }
   void setIcon(const string &icon){
     try{
+      cout<<"show icon "<<icon<<std::endl;
       auto pixbuf = Gdk::Pixbuf::create_from_file(icon,ICON_SIZE,ICON_SIZE);
       this->image->set(pixbuf);
     }catch(...){
-
+      this->image->clear();
     }
   }
   // void get_preferred_width_vfunc(int &minimum_width, int &natural_width) const

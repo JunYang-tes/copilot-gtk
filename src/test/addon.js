@@ -11,31 +11,32 @@ keybinder.on("<Ctrl>H", () => {
 // keybinder.start();
 console.log("keybind")
 
-// setInterval(()=>console.log("=====\n"),1000);
-gui.gui((e) => {
+setInterval(() => console.log("tick"), 1000);
+gui.gui(async (e) => {
   console.log("@ Main callback")
   console.log(e);
   if (e.type === "text-change") {
     if (e.event.text == "exit") {
       process.exit(0);
     } else {
-      let cnt = ~~(Math.random()*5)+3 ;
-      let data=[]
-      while(cnt--){
+      let cnt = ~~(Math.random() * 10) + 3;
+      let data = []
+      await new Promise(res => setTimeout(res, 100))
+      while (cnt--) {
         data.push(
           {
-            title:e.event.text+cnt,
+            title: e.event.text + cnt,
             icon: "./assets/icon.png",
-            text:"<span foreground=\"red\"><b>I</b> am red</span><span foreground=\"green\"> I am green</span>"
+            text: "<span foreground=\"red\"><b>I</b> am red</span><span foreground=\"green\"> I am green</span>"
           }
         )
       }
       gui.display({
-        type:"list",
+        type: "list",
         data
       })
     }
   } else if (e.type === "quit") {
     console.log("GUI exited.")
-  } 
+  }
 });
